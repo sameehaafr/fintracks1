@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Categories</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Category</h2>
+        <form action="{{ url_for('edit_category') }}" method="POST">
+            <input type="hidden" name="action" value="add">
+            <input type="text" name="new_category" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <h2>Edit Existing Categories</h2>
+        <ul>
+            {% for category in categories %}
+            <li>
+                <form action="{{ url_for('edit_category') }}" method="POST" style="display: inline;">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="category_id" value="{{ category.id }}">
+                    <input type="text" name="new_name" value="{{ category.name }}" required>
+                    <button type="submit">Edit</button>
+                </form>
+                <form action="{{ url_for('edit_category') }}" method="POST" style="display: inline;">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="category_id" value="{{ category.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="/" method="GET">
+            <button type="submit">Save and Go Back to Home Page</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Expense Report</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Purchase Date</th>
+            <th>Category</th>
+        </tr>
+        {% for item in report %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.purchase_date }}</td>
+            <td>{{ item.category_name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Summary</h2>
+    <ul>
+        <li>Total Expenses: {{ report[0].total_exp }}</li>
+        <li>Total Amount: {{ report[0].total_amt }}</li>
+        <li>Average Amount: {{ report[0].avg_amt }}</li>
+        <li>Minimum Amount: {{ report[0].min_amt }}</li>
+        <li>Maximum Amount: {{ report[0].max_amt }}</li>
+    </ul>
+    <h2>Expenses by Category</h2>
+    <ul>
+        {% for category, total_amount in report[0].expenses_by_category.items() %}
+        <li>{{ category }}: {{ total_amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
